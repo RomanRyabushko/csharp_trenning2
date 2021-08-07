@@ -5,9 +5,11 @@ using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace SeleniumTests
+
+namespace addressbook_web_tests
 {
     [TestFixture]
     public class UntitledTestCase
@@ -20,8 +22,8 @@ namespace SeleniumTests
         [SetUp]
         public void SetupTest()
         {
-            driver = new FirefoxDriver();
-            baseURL = "https://www.google.com/";
+            driver = new ChromeDriver();
+            baseURL = "http://localhost";
             verificationErrors = new StringBuilder();
         }
 
@@ -40,9 +42,9 @@ namespace SeleniumTests
         }
 
         [Test]
-        public void TheUntitledTestCaseTest()
+        public void Test1()
         {
-            driver.Navigate().GoToUrl("http://localhost/addressbook/");
+            driver.Navigate().GoToUrl(baseURL + "/addressbook/");
             driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Clear();
             driver.FindElement(By.Name("user")).SendKeys("admin");
