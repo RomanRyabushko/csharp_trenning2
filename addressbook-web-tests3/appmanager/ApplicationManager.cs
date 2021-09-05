@@ -49,8 +49,6 @@ namespace WebAddressBookTests
                 // Ignore errors if unable to close the browser
             }
         }
-
-
         public LoginHelper Auth
         {
             get
@@ -73,13 +71,12 @@ namespace WebAddressBookTests
                 return groupHelper;
             }
         }
-        public ContactHelper Contact
+        public ContactHelper Contacts
         {
             get
             {
                 return contactHelper;
             }
-        }
-             
+        }             
     }
 }

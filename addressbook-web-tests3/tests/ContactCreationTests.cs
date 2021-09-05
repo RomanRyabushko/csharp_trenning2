@@ -16,14 +16,17 @@ namespace WebAddressBookTests
         [Test]
         public void ContactCreationTest()
         {
-            app.Navigator.OpenContactPage();
-            app.Navigator.GoToAddNew();
+            //app.Navigator.OpenContactPage();
+            //app.Navigator.GoToAddNew();
             ContactData contact = new ContactData("43", "43");
             contact.Middlename = "43";
-            app.Contact
-                .FillContactForm(contact)
-                .SubmitContactCreation();
-            app.Navigator.ReturnToHomePage();
+            //app.Contact
+            //.FillContactForm(contact)
+            //.SubmitContactCreation();
+            //app.Navigator.ReturnToHomePage();
+
+            app.Contacts.CreateContact(contact);
+
             app.Navigator.LogOut();
         }     
   
