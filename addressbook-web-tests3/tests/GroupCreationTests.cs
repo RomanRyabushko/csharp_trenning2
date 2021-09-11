@@ -25,6 +25,8 @@ namespace WebAddressBookTests
 
             app.Navigator.LogOut();
         }
+
+        [Test]
         public void EmtyGroupCreationTest()
         {
             

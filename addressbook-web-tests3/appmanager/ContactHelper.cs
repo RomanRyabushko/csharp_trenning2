@@ -5,6 +5,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
+using NUnit.Framework;
 
 namespace WebAddressBookTests
 {
@@ -16,6 +18,7 @@ namespace WebAddressBookTests
             : base(manager)
         {        
         }
+               
 
         public ContactHelper CreateContact(ContactData contact) 
         {
@@ -26,6 +29,56 @@ namespace WebAddressBookTests
             manager.Navigator.ReturnToHomePage();
             return this;
         }
+        public ContactHelper ModifyContact(int p, ContactData newData)
+        {
+            manager.Navigator.OpenContactPage();
+            InitContactModification();
+            FillContactForm(newData);
+            SubmitContactModification();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+        public ContactHelper RemoveContact(int c)
+        {
+            manager.Navigator.OpenContactPage();
+            SelectContact(c);
+            DeleteContact();
+            AlertAccept();
+            return this;
+        }
+
+        public ContactHelper AlertAccept()
+        {
+            Assert.IsTrue(Regex.IsMatch(driver.SwitchTo().Alert().Text, "^Delete 1 addresses[\\s\\S]$"));
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper DeleteContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification()
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img")).Click();
+            return this;
+        }
+
+
         public ContactHelper FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
