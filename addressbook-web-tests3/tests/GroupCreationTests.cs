@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressBookTests
 {
     [TestFixture]
-    public class GroupCreationTests : TestBase
+    public class GroupCreationTests : AuthTestBase
     {
      
 
@@ -23,7 +23,7 @@ namespace WebAddressBookTests
             
             app.Groups.Create(group);
 
-            app.Navigator.LogOut();
+            //app.Navigator.LogOut();
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace WebAddressBookTests
             
             app.Groups.Create(group);
 
-            app.Navigator.LogOut();
+            //app.Navigator.LogOut();
         }
     }
 }

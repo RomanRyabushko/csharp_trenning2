@@ -36,6 +36,7 @@ namespace WebAddressBookTests
             SubmitGroupModification();
             RetutnToGrpoupsPage();
             return this;
+           
         }
 
         
@@ -72,7 +73,16 @@ namespace WebAddressBookTests
         }
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + "]/input")).Click();
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+                driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + "]/input")).Click();
+            }
+            //InitGroupsCreation();
+            //FillGroupForm(GroupData group);
+            //SubmitGroupModification();
+
+
+
             return this;
         }
         public GroupHelper RemoveGroup()

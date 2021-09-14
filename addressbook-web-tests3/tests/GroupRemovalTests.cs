@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressBookTests
 {
     [TestFixture]
-    public class GroupRemovalTests : TestBase
+    public class GroupRemovalTests : AuthTestBase
 
     {
 
@@ -19,7 +19,7 @@ namespace WebAddressBookTests
         {
             app.Groups.Remove(1);
  
-            app.Navigator.LogOut();
+            //app.Navigator.LogOut();
         }
 
     }
