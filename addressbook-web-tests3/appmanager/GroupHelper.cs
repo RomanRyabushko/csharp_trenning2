@@ -66,11 +66,9 @@ namespace WebAddressBookTests
                 {
 
                     groupCashe.Add(new GroupData(element.Text){                   
-                        Id = element.FindElement(By.TagName("input")).GetAttribute("valie")
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
-
                 }
-
             }
 
             return new List<GroupData>(groupCashe);

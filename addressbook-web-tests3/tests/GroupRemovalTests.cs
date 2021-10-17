@@ -36,6 +36,5 @@ namespace WebAddressBookTests
                 Assert.AreNotEqual(group.Id, toBeRemoved.Id);
             }
         }
-
     }
 }
