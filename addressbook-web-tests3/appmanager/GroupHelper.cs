@@ -27,6 +27,7 @@ namespace WebAddressBookTests
 
         }
 
+        
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
@@ -51,6 +52,29 @@ namespace WebAddressBookTests
             return this;
         }
 
+        private List<GroupData> groupCashe = null;
+
+        
+        public List<GroupData> GetGroupList()
+        {
+            if (groupCashe == null)
+            {
+                groupCashe = new List<GroupData>();
+                manager.Navigator.GoToGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
+
+                    groupCashe.Add(new GroupData(element.Text){                   
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("valie")
+                    });
+
+                }
+
+            }
+
+            return new List<GroupData>(groupCashe);
+        }
         public GroupHelper InitGroupsCreation()
         {
             driver.FindElement(By.Name("new")).Click();
@@ -69,13 +93,14 @@ namespace WebAddressBookTests
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            groupCashe = null;
             return this;
         }
         public GroupHelper SelectGroup(int index)
         {
             if (IsElementPresent(By.Name("selected[]")))
             {
-                driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + index + "]/input")).Click();
+                driver.FindElement(By.XPath("//div[@id='content']/form/span[ " + (index+1) + "]/input")).Click();
             }
             //InitGroupsCreation();
             //FillGroupForm(GroupData group);
@@ -88,6 +113,7 @@ namespace WebAddressBookTests
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+            groupCashe = null;
             return this;
         }
         public GroupHelper RetutnToGrpoupsPage()
@@ -98,6 +124,7 @@ namespace WebAddressBookTests
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupCashe = null;
             return this;
         }
 
@@ -105,6 +132,11 @@ namespace WebAddressBookTests
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
+        }
+
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
     }
 }
